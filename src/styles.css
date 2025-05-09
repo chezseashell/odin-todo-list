@@ -1,3 +1,73 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+
+* {
+    margin: auto;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    background-color: lightseagreen;
+    max-width: 400px;
+    outline: 1px solid white;
+    border-radius: 25px;
+    padding: 30px;
+    margin-top: 40px;
+    background-color: #101111;
+    color: rgb(220, 217, 217);
+    font-size: 16px;
+    font-family: 'IBM Plex Mono', monospace, sans-serif;
+    font-weight: 100;
+}
+
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+#add-todo-btn {
+    border-radius: 25px;
+    width:40px;
+    height: 40px;
+    margin: 40px 0 40px 0;
+    background-color: white;
+    border: none;
+
+}
+
+#projectHeader {
+    width: 100%;
+    margin-top: 20px;
+    border-bottom: 1px solid white;
+}
+
+.project:first-of-type {
+    margin-top: 20px;
+}
+
+.project {
+    margin-bottom: 20px;;
+}
+
+
+.project h2, .project ul {
+    margin-left:15px;
+    margin-bottom: 8px;
+}
+
+.project ul {
+    list-style: none ;
+}
+.project:hover {
+    background-color: #202222;
+}
+.project:has(> .active) {
+    color: rgb(245, 245, 245);
+    background-color: rgb(35, 151, 138);
 }
