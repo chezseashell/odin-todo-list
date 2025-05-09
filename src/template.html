@@ -1,11 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo List</title>
 </head>
 <body>
-    
+  <div id="app">
+    <h1>Todo List</h1>
+    <div id="project-list"></div>
+    <div id="todo-list"></div>
+    <form id="add-todo-form">
+      <input type="text" id="todo-title" placeholder="Todo Title" required>
+      <button type="submit">Add Todo</button>
+    </form>
+    <form id="add-project-form">
+      <input type="text" id="project-name" placeholder="New Project Name" required>
+      <button type="submit">Add Project</button>
+    </form>
+  </div>
 </body>
 </html>
