@@ -1,10 +1,9 @@
 export class toDo {
-    constructor(title, description = '', dueDate = '', priority = 'low', notes = '', completed = false) {
+    constructor(title, description = '', dueDate = '', priority = 'low', completed = false) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
-        this.notes = notes;
         this.completed;
 
     }
@@ -13,7 +12,7 @@ export class toDo {
         this.completed = !this.completed;
     }
 
-    update({ title, description, dueDate, priority}) {
+    update({title, description, dueDate, priority}) {
         if (title) this.title = title;
         if (description) this.description = description;
         if (dueDate) this.DueDate = dueDate;

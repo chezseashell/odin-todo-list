@@ -50,21 +50,20 @@ export const renderProjects = (projects, currentProject, onProjectClick, onDelet
     }
     formContainer.innerHTML = `
       <form id="todo-form">
-        <label>Title: <input type="text" id="todo-title" value="${todo ? todo.title : ''}" required></label><br>
-        <label>Description: <textarea id="todo-description">${todo ? todo.description : ''}</textarea></label><br>
-        <label>Due Date: <input type="date" id="todo-due-date" value="${todo ? todo.dueDate : ''}"></label><br>
-        <label>Priority:
+        <input type="text" id="todo-title" value="${todo ? todo.title : ''}" placeholder= "Enter title here" required><br>
+        <textarea id="todo-description" placeholder="add description...">${todo ? todo.description : ''}</textarea></label><br>
+        <label class="todo-form-flex">Date: <input type="date" id="todo-due-date" value="${todo ? todo.dueDate : ''}"></label><br>
+        <label class="todo-form-flex">Priority:
           <select id="todo-priority">
             <option value="low" ${todo && todo.priority === 'low' ? 'selected' : ''}>Low</option>
             <option value="medium" ${todo && todo.priority === 'medium' ? 'selected' : ''}>Medium</option>
             <option value="high" ${todo && todo.priority === 'high' ? 'selected' : ''}>High</option>
           </select>
         </label><br>
-        <label>Notes: <textarea id="todo-notes">${todo ? todo.notes : ''}</textarea></label><br>
-        <label>Completed: <input type="checkbox" id="todo-completed" ${todo && todo.completed ? 'checked' : ''}></label><br>
-        <input type="hidden" id="todo-project" value="${projectName}">
-        <button type="submit">${todo ? 'Update Todo' : 'Add Todo'}</button>
-        <button type="button" id="cancel-todo">Cancel</button>
+        <label class="todo-form-flex">Completed: <input type="checkbox" id="todo-completed" ${todo && todo.completed ? 'checked' : ''}></label><br>
+        <div class="todo-form-flex" id="todo-buttons"><div id="todo-new"><p>Add new todo for <em>${projectName}</em></p><button type="submit">${todo ? 'Update Todo' : '+'}</button></div><button type="button" id="cancel-todo">Cancel</button></div>
+        
+        
       </form>
     `;
     const form = document.getElementById('todo-form');
