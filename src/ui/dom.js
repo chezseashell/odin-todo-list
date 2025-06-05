@@ -26,7 +26,7 @@ export const renderProjects = (projects, currentProject, onProjectClick, onDelet
         <strong>${todo.title}</strong> (${todo.priority})<br>
         Description: ${todo.description || 'None'}<br>
         Due: ${todo.dueDate || 'Not set'}<br>
-        Notes: ${todo.notes || 'None'}<br>
+        /* Notes: ${todo.notes || 'None'}<br> */
         Completed: ${todo.completed ? 'Yes' : 'No'}
       `;
       const deleteBtn = document.createElement('button');
@@ -61,9 +61,8 @@ export const renderProjects = (projects, currentProject, onProjectClick, onDelet
           </select>
         </label><br>
         <label class="todo-form-flex">Completed: <input type="checkbox" id="todo-completed" ${todo && todo.completed ? 'checked' : ''}></label><br>
+         <input type="hidden" id="todo-project" value="${projectName}">
         <div class="todo-form-flex" id="todo-buttons"><div id="todo-new"><p>Add new todo for <em>${projectName}</em></p><button type="submit">${todo ? 'Update Todo' : '+'}</button></div><button type="button" id="cancel-todo">Cancel</button></div>
-        
-        
       </form>
     `;
     const form = document.getElementById('todo-form');
