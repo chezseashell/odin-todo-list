@@ -4,6 +4,7 @@ import { renderProjects, renderTodos, renderTodoForm } from './dom.js';
 export const setupEventListeners = (projectManager) => {
   const addTodoBtn = document.getElementById('add-todo-btn');
   const addProjectForm = document.getElementById('add-project-form');
+  const projectListBtn = document.getElementById('project-list-button');
 
   if (!addTodoBtn || !addProjectForm) {
     console.error('Required elements not found');
@@ -45,7 +46,6 @@ export const setupEventListeners = (projectManager) => {
         description: document.getElementById('todo-description').value.trim(),
         dueDate: document.getElementById('todo-due-date').value,
         priority: document.getElementById('todo-priority').value,
-        // notes: document.getElementById('todo-notes').value.trim(),
         completed: document.getElementById('todo-completed').checked,
       };
       todo.update(updatedTodo);
@@ -65,7 +65,6 @@ export const setupEventListeners = (projectManager) => {
         document.getElementById('todo-description').value.trim(),
         document.getElementById('todo-due-date').value,
         document.getElementById('todo-priority').value,
-        // document.getElementById('todo-notes').value.trim(),
         document.getElementById('todo-completed').checked
       );
       const projectName = document.getElementById('todo-project').value;
@@ -95,7 +94,30 @@ export const setupEventListeners = (projectManager) => {
     projectManager.addProject(name);
     renderUI();
     addProjectForm.reset();
+    addProjectForm.style.display = 'none'; // Hide form after submission
   });
+
+
+
+
+  // Toggle add project form on list icon click
+  const projectListIcon = document.getElementById('project-list-button');
+  if (projectListIcon) {
+    projectListIcon.addEventListener('click', () => {
+      addProjectForm.style.display = addProjectForm.style.display === 'none' ? 'flex' : 'none';
+    });
+  } else {
+    console.error('Project list icon not found');
+  }
+
+  // Handle cancel button for add project form
+  const cancelProjectBtn = document.getElementById('cancel-project');
+  if (cancelProjectBtn) {
+    cancelProjectBtn.addEventListener('click', () => {
+      addProjectForm.style.display = 'none';
+      addProjectForm.reset();
+    });
+  }
 
   // Initial render
   renderUI();

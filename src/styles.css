@@ -13,9 +13,7 @@
 
 body {
     margin:auto;
-    max-width: 400px;
-
-
+    
     background-color: #b7b5a2;
     color: #272624;
     font-size: 16px;
@@ -32,10 +30,19 @@ body {
 
 
 #app {
+    background-image: url("/src/assets/swirl.svg");
+    /* transform: rotate(30deg); */
+    max-width: 400px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    
+    margin:auto;
+    min-height: 750px;
     background-color: #f1f0e6;
     /* padding: 30px; */
     margin-top: 40px;
-    border-radius: 25px;
+    border-radius: 25px 25px 0 0;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 
@@ -66,15 +73,62 @@ body {
 
 
 #projectHeader {
+    height:55px;
+    border-radius: 0 0 25px 25px;
+    background-color:#3e3d3b;
+    
+    
     margin: auto;
-    width: 80%;
-    margin-top: 20px;
-    border-bottom: 1px solid #272624;
-    font-size: 2rem;
-    font-weight: 200;
+    max-width: 400px;
+    font-size: 1.25rem;
+    font-weight: 300;
     letter-spacing: .075rem;
     padding-bottom: 5px;
 }
+
+#projectHeader>div {
+    padding-top:12px;
+    font-size: 1.15rem;
+    font-weight:100;
+    letter-spacing: .035rem;;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:15px;
+    color:#b7b5a2;
+}
+
+#projectHeader>div>button {
+     font-size: 1.15rem;
+    font-weight:100;
+    letter-spacing: .035rem;;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:15px;
+    color:#b7b5a2;
+}
+
+
+
+
+#project-list-button{
+    align-self: center;
+    padding-left: 15px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    
+}
+
+#project-list-span{
+    background-color: transparent;
+    border: none;
+    outline:none;
+    color:#b7b5a2;
+}
+
+
 
 #project-todo-list {
     width: 80%;
@@ -123,6 +177,7 @@ body {
 #todo-name-div~button{
     outline: none;
     border: none;
+    background-color: transparent;
 
 }
 
@@ -134,7 +189,7 @@ body {
 .project ul {
     list-style: none ;
 }
-.project:hover {
+.project-title:hover {
     background-color: #202222;
     cursor: pointer;
     /* background-color: #b7b5a2; */
@@ -272,6 +327,11 @@ input::placeholder, textarea::placeholder {
 
 }
 
+#todo-status-div>button {
+        background-color: none;
+
+}
+
 
 #add-project-form {
     width:100%;
@@ -305,4 +365,68 @@ input::placeholder, textarea::placeholder {
     width:fit-content;
     font-size: .95rem;
     letter-spacing: .025rem;
+}
+
+#add-project-form{
+    display: none;
+}
+
+
+#add-project-form {
+    justify-content: center;
+    position: relative;
+    top: -20px;
+    height:30px;
+    align-items: center;
+    gap:10px;
+    background: #3e3d3b;
+    border-radius: 0 0 25px 25px;
+    z-index:4;
+    border:none;
+
+} 
+
+
+#add-project-form input {
+    border:none;
+    background-color: transparent;
+    color:white;
+}
+
+#add-project-form input:focus {
+    outline: none;
+}
+
+#add-project-form input:before {
+    content: "";
+    
+}
+
+#add-project-form input::placeholder, textarea::placeholder {
+    color:#f1f0e6;
+    padding-left: 5px;
+}
+
+#project-name {
+    padding-top:15px;
+}
+
+#project-name ~ button{
+    border:none;
+    background-color: transparent;
+    margin-top:15px;
+    color: #f1f0e6;
+    font-size: .9rem;
+    font-weight: 200;
+    border-radius: 25px;
+    border: 1px solid #9b9988;
+    padding: 8px 15px 8px 15px;
+
+
+}
+
+#project-name ~ button:hover {
+    background-color: #b7b5a2;
+    border: transparent;
+    color: #3e3d3b;
 }

@@ -9,16 +9,25 @@
 <body>
   <div id="app">
     <h1 id="app-logo">Todo List</h1>
-    <div id="projectHeader">Projects</div>
+    
     <div id="project-todo-list"></div>
+    
     <button id="add-todo-btn"><span id="addTodo" class="material-symbols-outlined">
         add
         </span></button>
     <div id="todo-form-container"></div>
-    <form id="add-project-form">
-      <input type="text" id="project-name" placeholder="New Project Name" required>
-      <button type="submit">Add Project</button>
-    </form>
+  
+    
   </div>
+  <div id="projectHeader">
+      
+      <div><button id="project-list-button">Projects<span id="project-list-span" class="material-symbols-outlined">list</span></button></div>
+      
+      <form class="hidden" id="add-project-form">
+        <input type="text" id="project-name" placeholder="New Project Name" required>
+        <button type="submit">Add</button>
+        <button id="cancel-project">Cancel</button>
+      </form>
+    </div>
 </body>
 </html>
