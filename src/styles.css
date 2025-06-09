@@ -1,7 +1,7 @@
 
 
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Indie+Flower&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 
 
@@ -62,8 +62,10 @@ body {
 
 
 #app-logo {
+    margin-top: 30px;
+    margin-left:10%;
     letter-spacing: .075em;
-    padding: 10% 10% 0 10%;
+    max-width: 120px;
 
 }
 
@@ -73,23 +75,19 @@ body {
 
 
 #projectHeader {
-    height:55px;
+    height:65px;
     border-radius: 0 0 25px 25px;
     background-color:#3e3d3b;
-    
     
     margin: auto;
     max-width: 400px;
     font-size: 1.25rem;
-    font-weight: 300;
     letter-spacing: .075rem;
     padding-bottom: 5px;
 }
 
 #projectHeader>div {
     padding-top:12px;
-    font-size: 1.15rem;
-    font-weight:100;
     letter-spacing: .035rem;;
     display: flex;
     justify-content: center;
@@ -99,9 +97,7 @@ body {
 }
 
 #projectHeader>div>button {
-     font-size: 1.15rem;
-    font-weight:100;
-    letter-spacing: .035rem;;
+    letter-spacing: .05rem;;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -110,14 +106,22 @@ body {
 }
 
 
-
+#project-list-button em {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight:400;
+    font-style: normal;
+    font-size: 1.25em;
+    letter-spacing: .15em;
+}
 
 #project-list-button{
+
     align-self: center;
     padding-left: 15px;
     background-color: transparent;
     border: none;
     outline: none;
+    font-size: 0.75em;
     
 }
 
@@ -161,14 +165,17 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+        font-family: 'IBM Plex Mono', monospace;
+
+    
 }
 
 
 .todo-ul {
     margin-top: 10px;
     margin-left:20px;
-    padding-bottom: ;
-    border-bottom: 1px solid black;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #272624;
     font-size: .9rem;
     display: flex;
 
@@ -189,6 +196,10 @@ body {
 .project ul {
     list-style: none ;
 }
+
+.project-title{
+    margin-top: 20px;
+}
 .project-title:hover {
     background-color: #202222;
     cursor: pointer;
@@ -203,7 +214,7 @@ body {
     border-radius: 25px;
     align-self: center;
     border: none;
-    margin-top: 20px;;
+
 
 }
 
@@ -237,7 +248,9 @@ body {
     border: none;
     margin-bottom: 10px;
     width: 100%;  
-    color:white; 
+    color:#f1f0e6; 
+    font-family: 'IBM Plex Mono', monospace;
+
 
 }
 
@@ -271,7 +284,7 @@ body {
 }
 
 input::placeholder, textarea::placeholder {
-    color:white;
+    color:#f1f0e6;
     padding-left: 5px;
 }
 
@@ -339,6 +352,7 @@ input::placeholder, textarea::placeholder {
     display: flex;
     justify-content: center;
     padding-bottom: 30px;
+    padding-top: 10px;
 }
 
 
@@ -375,7 +389,7 @@ input::placeholder, textarea::placeholder {
 #add-project-form {
     justify-content: center;
     position: relative;
-    top: -20px;
+    top: -28px;
     height:30px;
     align-items: center;
     gap:10px;
@@ -383,6 +397,7 @@ input::placeholder, textarea::placeholder {
     border-radius: 0 0 25px 25px;
     z-index:4;
     border:none;
+;
 
 } 
 
@@ -390,7 +405,9 @@ input::placeholder, textarea::placeholder {
 #add-project-form input {
     border:none;
     background-color: transparent;
-    color:white;
+    color:#f1f0e6;
+    font-family: 'IBM Plex Mono', monospace;
+
 }
 
 #add-project-form input:focus {
@@ -405,10 +422,13 @@ input::placeholder, textarea::placeholder {
 #add-project-form input::placeholder, textarea::placeholder {
     color:#f1f0e6;
     padding-left: 5px;
+    letter-spacing: .05rem;
+    font-weight: 300;
 }
 
 #project-name {
-    padding-top:15px;
+    padding-top:5px;
+    align-self: center;
 }
 
 #project-name ~ button{
