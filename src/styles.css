@@ -2,6 +2,9 @@
 
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
+
+
+
 * {
     margin: 0;
     padding: 0;
@@ -19,6 +22,15 @@ body {
     font-family: "Inter", sans-serif;
 }
 
+/* .material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 14
+} */
+
+
 #app {
     background-color: #f1f0e6;
     /* padding: 30px; */
@@ -27,13 +39,7 @@ body {
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 
-.material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 24
-}
+
 
 #add-todo-btn {
     border-radius: 25px;
@@ -83,21 +89,47 @@ body {
 }
 
 
-.project {
-    margin-bottom: 20px;
-    display: flex;
-    /* align-items: flex-start; */
-    justify-content: center;
+.project>h2 {
+    text-align: center;
+    vertical-align: center;
     height:45px;
     border-radius: 25px;
-    border: 1px solid #272624;
-    font-size: .75rem;
-    font-weight: 100;
+    font-size: 1.25rem;
+    font-weight: 500;
     letter-spacing: .025rem;
+    vertical-align: center;
+    
+
+  
+}
+
+.project-title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
+.todo-ul {
+    margin-top: 10px;
+    margin-left:20px;
+    padding-bottom: ;
+    border-bottom: 1px solid black;
+    font-size: .9rem;
+    display: flex;
 
+}
+
+#todo-name-div~button{
+    outline: none;
+    border: none;
+
+}
+
+#todo-edit-btn {
+   padding-left: 70px;
+   padding-right: 15px;
+}
 
 .project ul {
     list-style: none ;
@@ -110,18 +142,14 @@ body {
 
     
 }
-.project:has(> .active) {
+.active {
     color: #272624;
     background-color: #Ebff57;
     border-radius: 25px;
     align-self: center;
     border: none;
+    margin-top: 20px;;
 
-}
-
-.project>h2 {
-    align-self: center;
-    margin: 0;
 }
 
 
@@ -239,6 +267,42 @@ input::placeholder, textarea::placeholder {
 }
 
 
+#todo-status-div {
+    display: flex;
+
+}
+
+
+#add-project-form {
+    width:100%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 30px;
+}
+
+
+#todo-new {
+    background-color: #Ebff57;
+    border-radius: 25px;
+    color: #272624;
+    padding: 0 10px 0 10px;
+    align-self: center;
+    font-size: .8rem;
+    font-weight: 300;
+    height: 30px;
+    display: flex;
+    align-items: center;
+}
 
 
 
+/* #todo-submit-btn {
+    background-color: green;
+} */
+
+#todo-new>button {
+    width:fit-content;
+    font-size: .95rem;
+    letter-spacing: .025rem;
+}

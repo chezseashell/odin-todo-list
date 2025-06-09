@@ -45,7 +45,7 @@ export const setupEventListeners = (projectManager) => {
         description: document.getElementById('todo-description').value.trim(),
         dueDate: document.getElementById('todo-due-date').value,
         priority: document.getElementById('todo-priority').value,
-        notes: document.getElementById('todo-notes').value.trim(),
+        // notes: document.getElementById('todo-notes').value.trim(),
         completed: document.getElementById('todo-completed').checked,
       };
       todo.update(updatedTodo);
@@ -65,7 +65,7 @@ export const setupEventListeners = (projectManager) => {
         document.getElementById('todo-description').value.trim(),
         document.getElementById('todo-due-date').value,
         document.getElementById('todo-priority').value,
-        document.getElementById('todo-notes').value.trim(),
+        // document.getElementById('todo-notes').value.trim(),
         document.getElementById('todo-completed').checked
       );
       const projectName = document.getElementById('todo-project').value;

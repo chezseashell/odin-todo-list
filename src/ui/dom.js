@@ -11,6 +11,7 @@ export const renderProjects = (projects, currentProject, onProjectClick, onDelet
       const projectTitle = document.createElement('h2');
       projectTitle.textContent = project.name;
       projectTitle.className = project === currentProject ? 'active' : '';
+      projectTitle.classList.add('project-title')
       projectTitle.addEventListener('click', () => onProjectClick(project.name));
       projectDiv.appendChild(projectTitle);
       renderTodos(project, projectDiv, onDeleteTodo, onEditTodo);
@@ -20,23 +21,32 @@ export const renderProjects = (projects, currentProject, onProjectClick, onDelet
   
   export const renderTodos = (project, container, onDelete, onEdit) => {
     const todoList = document.createElement('ul');
+
     project.getTodos().forEach(todo => {
+      const dueDateText = new Date(todo.dueDate);
+
+
+      const options = { month: 'long', day: 'numeric' };
+      const textDate = new Intl.DateTimeFormat('en-US', options).format(dueDateText)
+
       const todoItem = document.createElement('li');
       todoItem.innerHTML = `
-        <strong>${todo.title}</strong> (${todo.priority})<br>
-        Description: ${todo.description || 'None'}<br>
-        Due: ${todo.dueDate || 'Not set'}<br>
-        /* Notes: ${todo.notes || 'None'}<br> */
-        Completed: ${todo.completed ? 'Yes' : 'No'}
+        <div id="todo-name-div"><strong>${todo.title}</strong> (${todo.priority})<br>
+        <p>${textDate || 'Not set'}</p></div>
+        <div id="todo-status-div"></div>
       `;
       const deleteBtn = document.createElement('button');
-      deleteBtn.textContent = 'Delete';
+      deleteBtn.innerHTML = `<span  class="material-symbols-outlined todo-list-btn">
+remove
+</span>`;
       deleteBtn.addEventListener('click', () => onDelete(project.name, todo.title));
       const editBtn = document.createElement('button');
-      editBtn.textContent = 'Edit';
+      editBtn.innerHTML = `<span id="todo-edit-btn">edit</span>`;
       editBtn.addEventListener('click', () => onEdit(project.name, todo));
-      todoItem.appendChild(deleteBtn);
+      todoItem.classList.add('todo-ul');
       todoItem.appendChild(editBtn);
+      todoItem.appendChild(deleteBtn);
+
       todoList.appendChild(todoItem);
     });
     container.appendChild(todoList);
@@ -62,7 +72,7 @@ export const renderProjects = (projects, currentProject, onProjectClick, onDelet
         </label><br>
         <label class="todo-form-flex">Completed: <input type="checkbox" id="todo-completed" ${todo && todo.completed ? 'checked' : ''}></label><br>
          <input type="hidden" id="todo-project" value="${projectName}">
-        <div class="todo-form-flex" id="todo-buttons"><div id="todo-new"><p>Add new todo for <em>${projectName}</em></p><button type="submit">${todo ? 'Update Todo' : '+'}</button></div><button type="button" id="cancel-todo">Cancel</button></div>
+        <div class="todo-form-flex" id="todo-buttons"><div id="todo-new"><button type="submit">${todo ? 'Update' : 'Add'}</button></div><button type="button" id="cancel-todo">Cancel</button></div>
       </form>
     `;
     const form = document.getElementById('todo-form');
