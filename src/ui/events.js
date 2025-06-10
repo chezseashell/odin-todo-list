@@ -1,3 +1,4 @@
+import { ProjectManger } from '../models/ProjectManager.js';
 import { toDo } from '../models/toDoClass.js';
 import { renderProjects, renderTodos, renderTodoForm } from './dom.js';
 
@@ -126,41 +127,53 @@ export const setupEventListeners = (projectManager) => {
   const projectListIcon = document.getElementById('project-list-button');
   const projectListDiv = document.getElementById('project-list-div');
   
-  if (projectListIcon) {
-    projectListIcon.addEventListener('click', () => {
-      addProjectForm.style.display = addProjectForm.style.display === 'none' ? 'flex' : 'none';
+if (projectListIcon) {
+  projectListIcon.addEventListener('click', () => {
+    addProjectForm.style.display = addProjectForm.style.display === 'none' ? 'flex' : 'none';
 
-      
-      const projectList = Object.values(projectManager.getProjects());
-      console.log(projectList)
+    const projectList = projectManager.getProjects();
+    
+    // Clear existing project list to avoid duplicates
+    projectListDiv.innerHTML = '';
 
-      const projectNames = [];
-      for (let i=0; i < projectList.length; i++){
-        projectNames.push(projectList[i].name)
-        console.log(projectNames)
-      }
-      
-      for (const item of projectNames) {
-        const project = document.createElement('p')
+    // Render all projects, including Home
+    for (const project of projectList) {
+      const projectDiv = document.createElement('div');
+      projectDiv.innerHTML = `<p>${project.name}</p><span class="material-symbols-outlined project-delete-btn">remove</span>`;
+      projectDiv.id = project.name;
+      projectDiv.className = 'project-sub-name';
+      projectListDiv.append(projectDiv);
+    }
 
-        const projectItem = document.getElementById(item);
-        if (projectItem) {
-          console.log(true)
-          
-
+    // Handle delete project button click
+    const deleteProjectIcons = document.querySelectorAll('.project-delete-btn');
+    deleteProjectIcons.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent event bubbling
+        const projectDiv = btn.parentElement; // Get the parent div
+        const projectName = projectDiv.id; // Get the project name from div id
+        
+        // Optional: Prevent deletion of Home project
+        if (projectName === 'Home') {
+          console.warn('Cannot delete the Home project');
+          alert('Cannot delete Home Project')
+          return;
         }
 
-        else if (!projectItem){
-          project.innerHTML =`${item}`;
-          project.id = item;
-          projectListDiv.append(project);
-        }
-      }
-
+        // Remove from projectManager
+        projectManager.removeProject(projectName);
+        
+        // Remove from DOM
+        projectListDiv.removeChild(projectDiv);
+        
+        // Update UI
+        renderUI();
+      });
     });
-  } else {
-    console.error('Project list icon not found');
-  }
+  });
+} else {
+  console.error('Project list icon not found');
+}
 
   // Handle cancel button for add project form
   const cancelProjectBtn = document.getElementById('cancel-project');
@@ -172,19 +185,9 @@ export const setupEventListeners = (projectManager) => {
   }
 
 
-  //Handle list of projects and delete buttons
 
-    // for(project in projectManager.getProjects().name) {
-      // console.log(projectManager.getProjects() )
-      // projectList.append(project.name)
+  
 
-      
-      // const project = document.createElement('p')
-      // project.innerHTML =`${projectManager.getProjects()[project].name}`
-      // projectListDiv.innerHTML += project
-    // }
-    // const test = projectManager.getProjects()[0].name;
-    // projectListDiv.innerHTML = test;
     
   if (projectListDiv) {
     
