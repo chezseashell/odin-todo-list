@@ -125,11 +125,20 @@ body {
     
 }
 
+#project-list-button:hover{
+    cursor: pointer;
+    color: white;
+}
+
 #project-list-span{
-    background-color: transparent;
+    content: url('/src/assets/listFreehand.svg');
     border: none;
     outline:none;
     color:#b7b5a2;
+}
+
+#project-list-span:hover{
+    content: url('/src/assets/listFreehandWhite.svg');
 }
 
 
@@ -137,6 +146,25 @@ body {
 #project-todo-list {
     width: 80%;
     margin: auto;
+
+}
+
+#project-list-div {
+
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    grid-template-rows: repeat(5, 1fr);
+    background:#3e3d3b;
+    /* margin-bottom:0; */
+    padding: 0 10% 5% 10%;
+
+}
+
+#project-list-div>p {
+    width: 100%;
+    border-bottom: 1px dashed #b7b5a2;
+    padding-bottom:4px;
 
 }
 
@@ -178,6 +206,7 @@ body {
     border-bottom: 1px dashed #272624;
     font-size: .9rem;
     display: flex;
+    justify-content: space-between;
 
 }
 
@@ -337,12 +366,16 @@ input::placeholder, textarea::placeholder {
 
 #todo-status-div {
     display: flex;
+    justify-content: flex-end;
 
 }
 
 #todo-status-div>button {
         background-color: none;
-
+        outline: none;
+        border: none;
+        background-color: transparent;
+    
 }
 
 
@@ -387,19 +420,23 @@ input::placeholder, textarea::placeholder {
 
 
 #add-project-form {
+    flex-direction: column;
     justify-content: center;
     position: relative;
     top: -28px;
-    height:30px;
     align-items: center;
     gap:10px;
     background: #3e3d3b;
     border-radius: 0 0 25px 25px;
     z-index:4;
     border:none;
-;
 
 } 
+
+#add-project-form > div {
+        background: #3e3d3b;
+        margin: 0;
+}
 
 
 #add-project-form input {

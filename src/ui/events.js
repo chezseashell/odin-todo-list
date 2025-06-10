@@ -18,9 +18,19 @@ export const setupEventListeners = (projectManager) => {
       projectManager.getCurrentProject(),
       handleProjectSwitch,
       handleDeleteTodo,
-      handleEditTodo
+      handleEditTodo,
+      // handleRemoveProject,
+
     );
   };
+
+  //Handle projects list
+  const handleRemoveProject = (name) => {
+    projectManager.removeProject(name);
+    renderUI();
+    // document.getElementById('project-name').innerHTML = ''; // Clear form
+  }
+
 
   // Handle project switch
   const handleProjectSwitch = (name) => {
@@ -83,6 +93,7 @@ export const setupEventListeners = (projectManager) => {
   addProjectForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const name = document.getElementById('project-name').value.trim();
+    
     if (!name) {
       console.warn('Project name cannot be empty');
       return;
@@ -91,6 +102,7 @@ export const setupEventListeners = (projectManager) => {
       console.warn('Project name already exists');
       return;
     }
+
     projectManager.addProject(name);
     renderUI();
     addProjectForm.reset();
@@ -98,13 +110,53 @@ export const setupEventListeners = (projectManager) => {
   });
 
 
+  // Remove Project
+
+
+
+
+
+
+  // Toggle List of Projects on Project list icon click
+
+
 
 
   // Toggle add project form on list icon click
   const projectListIcon = document.getElementById('project-list-button');
+  const projectListDiv = document.getElementById('project-list-div');
+  
   if (projectListIcon) {
     projectListIcon.addEventListener('click', () => {
       addProjectForm.style.display = addProjectForm.style.display === 'none' ? 'flex' : 'none';
+
+      
+      const projectList = Object.values(projectManager.getProjects());
+      console.log(projectList)
+
+      const projectNames = [];
+      for (let i=0; i < projectList.length; i++){
+        projectNames.push(projectList[i].name)
+        console.log(projectNames)
+      }
+      
+      for (const item of projectNames) {
+        const project = document.createElement('p')
+
+        const projectItem = document.getElementById(item);
+        if (projectItem) {
+          console.log(true)
+          
+
+        }
+
+        else if (!projectItem){
+          project.innerHTML =`${item}`;
+          project.id = item;
+          projectListDiv.append(project);
+        }
+      }
+
     });
   } else {
     console.error('Project list icon not found');
@@ -119,6 +171,26 @@ export const setupEventListeners = (projectManager) => {
     });
   }
 
+
+  //Handle list of projects and delete buttons
+
+    // for(project in projectManager.getProjects().name) {
+      // console.log(projectManager.getProjects() )
+      // projectList.append(project.name)
+
+      
+      // const project = document.createElement('p')
+      // project.innerHTML =`${projectManager.getProjects()[project].name}`
+      // projectListDiv.innerHTML += project
+    // }
+    // const test = projectManager.getProjects()[0].name;
+    // projectListDiv.innerHTML = test;
+    
+  if (projectListDiv) {
+    
+  }
+  console.log(projectManager.getProjects().name)
+  
   // Initial render
   renderUI();
 };

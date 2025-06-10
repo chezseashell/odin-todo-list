@@ -21,13 +21,21 @@
   </div>
   <div id="projectHeader">
       
-      <div><button id="project-list-button"><em>Projects</em><span id="project-list-span" class="material-symbols-outlined"><img src="/src/assets/listFreehand.svg"></img></span></button></div>
+      <div><button id="project-list-button"><em>Projects</em><span id="project-list-span" class="material-symbols-outlined"></img></span></button></div>
       
       <form class="hidden" id="add-project-form">
-        <input type="text" id="project-name" placeholder="New Project Name" required>
-        <button type="submit">Add</button>
-        <button id="cancel-project">Cancel</button>
-      </form>
+        
+        <div>
+          <input type="text" id="project-name" placeholder="New Project Name" required>
+          <button type="submit">Add</button>
+          <button id="cancel-project">Cancel</button>
+        </div>
+      
+      <div id="project-list-div">
+        <h2>Your Projects</h2>
+      </div>
     </div>
+    </form>
+
 </body>
 </html>

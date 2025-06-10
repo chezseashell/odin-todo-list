@@ -33,20 +33,26 @@ export const renderProjects = (projects, currentProject, onProjectClick, onDelet
       todoItem.innerHTML = `
         <div id="todo-name-div"><strong>${todo.title}</strong> (${todo.priority})<br>
         <p>${textDate || 'Not set'}</p></div>
-        <div id="todo-status-div"></div>
+        
       `;
       const deleteBtn = document.createElement('button');
-      deleteBtn.innerHTML = `<span  class="material-symbols-outlined todo-list-btn">
-remove
-</span>`;
+      const todoStatusDiv = document.createElement('div');
+      todoStatusDiv.id = 'todo-status-div'
+      deleteBtn.innerHTML = `
+        <span class="material-symbols-outlined todo-list-btn">remove</span>
+        `;
       deleteBtn.addEventListener('click', () => onDelete(project.name, todo.title));
       const editBtn = document.createElement('button');
       editBtn.innerHTML = `<span id="todo-edit-btn">edit</span>`;
       editBtn.addEventListener('click', () => onEdit(project.name, todo));
       todoItem.classList.add('todo-ul');
-      todoItem.appendChild(editBtn);
-      todoItem.appendChild(deleteBtn);
 
+      
+      todoStatusDiv.appendChild(editBtn);
+      todoStatusDiv.appendChild(deleteBtn);
+
+
+      todoItem.appendChild(todoStatusDiv);
       todoList.appendChild(todoItem);
     });
     container.appendChild(todoList);
