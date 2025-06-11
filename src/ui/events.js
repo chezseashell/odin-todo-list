@@ -25,12 +25,7 @@ export const setupEventListeners = (projectManager) => {
     );
   };
 
-  //Handle projects list
-  const handleRemoveProject = (name) => {
-    projectManager.removeProject(name);
-    renderUI();
-    // document.getElementById('project-name').innerHTML = ''; // Clear form
-  }
+
 
 
   // Handle project switch
@@ -139,7 +134,7 @@ if (projectListIcon) {
     // Render all projects, including Home
     for (const project of projectList) {
       const projectDiv = document.createElement('div');
-      projectDiv.innerHTML = `<p>${project.name}</p><span class="material-symbols-outlined project-delete-btn">remove</span>`;
+      projectDiv.innerHTML = `<p>${project.name}</p><span class="material-symbols-outlined project-delete-btn">delete</span>`;
       projectDiv.id = project.name;
       projectDiv.className = 'project-sub-name';
       projectListDiv.append(projectDiv);

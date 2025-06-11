@@ -1,3 +1,7 @@
+
+
+
+
 export const renderProjects = (projects, currentProject, onProjectClick, onDeleteTodo, onEditTodo) => {
     const projectTodoList = document.getElementById('project-todo-list');
     if (!projectTodoList) {
@@ -20,43 +24,45 @@ export const renderProjects = (projects, currentProject, onProjectClick, onDelet
   };
   
   export const renderTodos = (project, container, onDelete, onEdit) => {
-    const todoList = document.createElement('ul');
+  const todoList = document.createElement('ul');
 
-    project.getTodos().forEach(todo => {
-      const dueDateText = new Date(todo.dueDate);
-
+  project.getTodos().forEach(todo => {
+    // Parse dueDate as local date to avoid UTC shift
+    let dueDateText = '';
+    if (todo.dueDate) {
+      // Split the date string (e.g., "2025-06-11") and create a local date
+      const [year, month, day] = todo.dueDate.split('-').map(Number);
+      const localDate = new Date(year, month - 1, day); // month is 0-based in JS
 
       const options = { month: 'long', day: 'numeric' };
-      const textDate = new Intl.DateTimeFormat('en-US', options).format(dueDateText)
+      dueDateText = new Intl.DateTimeFormat('en-US', options).format(localDate);
+    }
 
-      const todoItem = document.createElement('li');
-      todoItem.innerHTML = `
-        <div id="todo-name-div"><strong>${todo.title}</strong> (${todo.priority})<br>
-        <p>${textDate || 'Not set'}</p></div>
-        
-      `;
-      const deleteBtn = document.createElement('button');
-      const todoStatusDiv = document.createElement('div');
-      todoStatusDiv.id = 'todo-status-div'
-      deleteBtn.innerHTML = `
-        <span class="material-symbols-outlined todo-list-btn">remove</span>
-        `;
-      deleteBtn.addEventListener('click', () => onDelete(project.name, todo.title));
-      const editBtn = document.createElement('button');
-      editBtn.innerHTML = `<span id="todo-edit-btn">edit</span>`;
-      editBtn.addEventListener('click', () => onEdit(project.name, todo));
-      todoItem.classList.add('todo-ul');
+    const todoItem = document.createElement('li');
+    todoItem.innerHTML = `
+      <div id="todo-name-div"><strong>${todo.title}</strong> (${todo.priority})<br>
+      <p>${dueDateText || 'Not set'}</p></div>
+    `;
+    const deleteBtn = document.createElement('button');
+    const todoStatusDiv = document.createElement('div');
+    todoStatusDiv.id = 'todo-status-div';
+    deleteBtn.innerHTML = `
+      <span class="material-symbols-outlined todo-list-btn">delete</span>
+    `;
+    deleteBtn.addEventListener('click', () => onDelete(project.name, todo.title));
+    const editBtn = document.createElement('button');
+    editBtn.innerHTML = `<span id="todo-edit-btn">edit</span>`;
+    editBtn.addEventListener('click', () => onEdit(project.name, todo));
+    todoItem.classList.add('todo-ul');
 
-      
-      todoStatusDiv.appendChild(editBtn);
-      todoStatusDiv.appendChild(deleteBtn);
+    todoStatusDiv.appendChild(editBtn);
+    todoStatusDiv.appendChild(deleteBtn);
 
-
-      todoItem.appendChild(todoStatusDiv);
-      todoList.appendChild(todoItem);
-    });
-    container.appendChild(todoList);
-  };
+    todoItem.appendChild(todoStatusDiv);
+    todoList.appendChild(todoItem);
+  });
+  container.appendChild(todoList);
+};
   
   export const renderTodoForm = (projectName, todo = null, onSubmit, onCancel) => {
     const formContainer = document.getElementById('todo-form-container');
