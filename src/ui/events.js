@@ -21,7 +21,7 @@ export const setupEventListeners = (projectManager) => {
       handleDeleteTodo,
       handleEditTodo,
       // handleRemoveProject,
-
+      
     );
   };
 
@@ -73,6 +73,7 @@ export const setupEventListeners = (projectManager) => {
         document.getElementById('todo-priority').value,
         document.getElementById('todo-completed').checked
       );
+            
       const projectName = document.getElementById('todo-project').value;
       const project = projectManager.getProjects().find(p => p.name === projectName);
       if (project) {
@@ -137,6 +138,7 @@ if (projectListIcon) {
       projectDiv.innerHTML = `<p>${project.name}</p><span class="material-symbols-outlined project-delete-btn">delete</span>`;
       projectDiv.id = project.name;
       projectDiv.className = 'project-sub-name';
+      document.getElementById('project-list-button').setAttribute('aria-label', 'Toggle project list');
       projectListDiv.append(projectDiv);
     }
 
@@ -145,10 +147,10 @@ if (projectListIcon) {
     deleteProjectIcons.forEach((btn) => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation(); // Prevent event bubbling
-        const projectDiv = btn.parentElement; // Get the parent div
-        const projectName = projectDiv.id; // Get the project name from div id
+        const projectDiv = btn.parentElement; 
+        const projectName = projectDiv.id; 
         
-        // Optional: Prevent deletion of Home project
+        // Prevent deletion of Home project
         if (projectName === 'Home') {
           console.warn('Cannot delete the Home project');
           alert('Cannot delete Home Project')

@@ -20,29 +20,18 @@ body {
     font-family: "Inter", sans-serif;
 }
 
-/* .material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 14
-} */
-
 
 #app {
     background-image: url("/src/assets/swirl.svg");
-    /* transform: rotate(30deg); */
     max-width: 400px;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
     
     margin:auto;
-    min-height: 500px;
+    min-height:100vh;
     background-color: #f1f0e6;
-    /* padding: 30px; */
-    margin-top: 40px;
-    border-radius: 25px 25px 0 0;
+    padding-bottom: 85px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 
@@ -72,28 +61,31 @@ body {
 
 /* PROJECT-TODO-LIST DIV STYLES */
 
-
-
 #projectHeader {
-    height:65px;
-    border-radius: 0 0 25px 25px;
-    background-color:#3e3d3b;
-    z-index:1;
-    margin: auto;
-    max-width: 400px;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 400px; /* Matches #app max-width for alignment */
+    height: 65px;
+    background-color: #3e3d3b;
+    z-index: 3; /* Below #todo-form (z-index: 5) and #add-project-form (z-index: 4) */
     font-size: 1.25rem;
-    letter-spacing: .075rem;
-    padding-bottom: 5px;
+    letter-spacing: 0.075rem;
+    padding-bottom: env(safe-area-inset-bottom, 5px); /* Adds padding for mobile safe areas */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); 
+    /* margin-bottom:10vh; */
 }
 
-#projectHeader>div {
-    padding-top:12px;
-    letter-spacing: .035rem;;
+#projectHeader > div {
+    padding-top: 12px;
+    letter-spacing: 0.035rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap:15px;
-    color:#b7b5a2;
+    gap: 15px;
+    color: #b7b5a2;
 }
 
 #projectHeader>div>button {
@@ -146,6 +138,7 @@ body {
 #project-todo-list {
     width: 80%;
     margin: auto;
+    padding-bottom: 20px;
 
 }
 
@@ -287,8 +280,6 @@ body {
     border-radius: 25px;
     align-self: center;
     border: none;
-
-
 }
 
 
@@ -296,7 +287,6 @@ body {
 /* TODO FORM STYLES*/
 
 #todo-form {
-    border: 2px solid red;
     background-color: #3e3d3b;
     padding: 35px;
     color: #f1f0e6;
@@ -304,18 +294,18 @@ body {
     letter-spacing: .025rem;
     height:400px;
     border-radius: 0 0 25px 25px;
-    width: 400px;
+    bottom:65px;
+    width: 100%;
+    max-width: 400px;
+    left: 50%;
+    transform: translateX(-50%);
     position:fixed;
     z-index:5;
     margin: auto;
     align-self: center;
 }
 
-#todo-form-container {
-
-    
-    
-}   
+ 
 
 .todo-form-flex {
     display: flex;
@@ -432,8 +422,13 @@ input::placeholder, textarea::placeholder {
 
 
 #add-project-form {
-    width:100%;
-    margin: auto;
+    bottom: 0; /* Position above #projectHeader */
+    width: 100%;
+    max-width: 400px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: fixed;
+    z-index: 4;
     display: flex;
     justify-content: center;
     padding-bottom: 30px;
@@ -554,6 +549,58 @@ input::placeholder, textarea::placeholder {
 .flex {
     display: flex;
     align-self: center;
+}
+
+
+#high {
+    background-color:rgba(214, 18, 67, .8);
+}
+
+#medium {
+    background-color:rgba(255, 182, 87, .8);
+}
+
+#low {
+    background-color:rgba(18, 214, 122, .8);
+}
+
+#todo-name-div > .flex {
+    gap:30px;
+    align-self: flex-end;    
+    align-items: center;
+    padding-top:8px;
+}
+
+#todo-status-div>span {
+    width:10px;
+    height:10px;
+    border-radius: 50%;
+    margin-right: 6px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 5px 5px -2px;
+
     
 }
 
+#todo-status-div {
+    color:#3e3d3b;
+    font-size: .8rem;
+    font-weight: 300;
+    letter-spacing: .05rem;
+    align-items: center;
+}
+
+
+
+
+@media (min-width: 768px) {
+    #app {
+        margin-top: 50px;
+        min-height: 80vh;
+
+    }
+
+    #projectHeader {
+        position:relative;
+        
+    }
+}

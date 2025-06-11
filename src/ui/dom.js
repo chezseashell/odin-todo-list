@@ -40,8 +40,13 @@ export const renderProjects = (projects, currentProject, onProjectClick, onDelet
 
     const todoItem = document.createElement('li');
     todoItem.innerHTML = `
-      <div id="todo-name-div"><strong>${todo.title}</strong> (${todo.priority})<br>
-      <p>${dueDateText || 'Not set'}</p></div>
+      <div id="todo-name-div">
+        <strong>${todo.title}</strong><br>
+        <div class="flex">
+          <p>${dueDateText || 'Not set'}</p>
+          <div id="todo-status-div"><span class="priority"  id="${todo.priority}"> </span>${todo.priority}</div>
+        </div>
+      </div>
     `;
     const deleteBtn = document.createElement('button');
     const todoStatusDiv = document.createElement('div');
