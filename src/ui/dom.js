@@ -3,27 +3,27 @@
 
 
 export const renderProjects = (projects, currentProject, onProjectClick, onDeleteTodo, onEditTodo) => {
-    const projectTodoList = document.getElementById('project-todo-list');
-    if (!projectTodoList) {
-      console.error('Project todo list element not found');
-      return;
-    }
-    projectTodoList.innerHTML = '';
-    projects.forEach(project => {
-      const projectDiv = document.createElement('div');
-      projectDiv.className = 'project';
-      const projectTitle = document.createElement('h2');
-      projectTitle.textContent = project.name;
-      projectTitle.className = project === currentProject ? 'active' : '';
-      projectTitle.classList.add('project-title')
-      projectTitle.addEventListener('click', () => onProjectClick(project.name));
-      projectDiv.appendChild(projectTitle);
-      renderTodos(project, projectDiv, onDeleteTodo, onEditTodo);
-      projectTodoList.appendChild(projectDiv);
-    });
-  };
+  const projectTodoList = document.getElementById('project-todo-list');
+  if (!projectTodoList) {
+    console.error('Project todo list element not found');
+    return;
+  }
+  projectTodoList.innerHTML = '';
+  projects.forEach(project => {
+    const projectDiv = document.createElement('div');
+    projectDiv.className = 'project';
+    const projectTitle = document.createElement('h2');
+    projectTitle.textContent = project.name;
+    projectTitle.className = project === currentProject ? 'active' : '';
+    projectTitle.classList.add('project-title');
+    projectTitle.addEventListener('click', () => onProjectClick(project.name));
+    projectDiv.appendChild(projectTitle);
+    renderTodos(project, projectDiv, onDeleteTodo, onEditTodo);
+    projectTodoList.appendChild(projectDiv);
+  });
+};
   
-  export const renderTodos = (project, container, onDelete, onEdit) => {
+export const renderTodos = (project, container, onDelete, onEdit) => {
   const todoList = document.createElement('ul');
 
   project.getTodos().forEach(todo => {
@@ -56,7 +56,7 @@ export const renderProjects = (projects, currentProject, onProjectClick, onDelet
     `;
     deleteBtn.addEventListener('click', () => onDelete(project.name, todo.title));
     const editBtn = document.createElement('button');
-    editBtn.innerHTML = `<span id="todo-edit-btn">edit</span>`;
+    editBtn.innerHTML = '<span id="todo-edit-btn">edit</span>';
     editBtn.addEventListener('click', () => onEdit(project.name, todo));
     todoItem.classList.add('todo-ul');
 
@@ -69,13 +69,13 @@ export const renderProjects = (projects, currentProject, onProjectClick, onDelet
   container.appendChild(todoList);
 };
   
-  export const renderTodoForm = (projectName, todo = null, onSubmit, onCancel) => {
-    const formContainer = document.getElementById('todo-form-container');
-    if (!formContainer) {
-      console.error('Todo form container not found');
-      return;
-    }
-    formContainer.innerHTML = `
+export const renderTodoForm = (projectName, todo = null, onSubmit, onCancel) => {
+  const formContainer = document.getElementById('todo-form-container');
+  if (!formContainer) {
+    console.error('Todo form container not found');
+    return;
+  }
+  formContainer.innerHTML = `
       <form id="todo-form">
         <input type="text" id="todo-title" value="${todo ? todo.title : ''}" placeholder= "Enter title here" required><br>
         <textarea id="todo-description" placeholder="add description...">${todo ? todo.description : ''}</textarea></label><br>
@@ -92,11 +92,11 @@ export const renderProjects = (projects, currentProject, onProjectClick, onDelet
         <div class="todo-form-flex" id="todo-buttons"><div id="todo-new"><button type="submit">${todo ? 'Update' : 'Add'}</button></div><button type="button" id="cancel-todo">Cancel</button></div>
       </form>
     `;
-    const form = document.getElementById('todo-form');
-    const cancelBtn = document.getElementById('cancel-todo');
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      onSubmit();
-    });
-    cancelBtn.addEventListener('click', onCancel);
-  };
+  const form = document.getElementById('todo-form');
+  const cancelBtn = document.getElementById('cancel-todo');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    onSubmit();
+  });
+  cancelBtn.addEventListener('click', onCancel);
+};

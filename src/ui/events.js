@@ -123,54 +123,54 @@ export const setupEventListeners = (projectManager) => {
   const projectListIcon = document.getElementById('project-list-button');
   const projectListDiv = document.getElementById('project-list-div');
   
-if (projectListIcon) {
-  projectListIcon.addEventListener('click', () => {
-    addProjectForm.style.display = addProjectForm.style.display === 'none' ? 'flex' : 'none';
+  if (projectListIcon) {
+    projectListIcon.addEventListener('click', () => {
+      addProjectForm.style.display = addProjectForm.style.display === 'none' ? 'flex' : 'none';
 
-    const projectList = projectManager.getProjects();
+      const projectList = projectManager.getProjects();
     
-    // Clear existing project list to avoid duplicates
-    projectListDiv.innerHTML = '';
+      // Clear existing project list to avoid duplicates
+      projectListDiv.innerHTML = '';
 
-    // Render all projects, including Home
-    for (const project of projectList) {
-      const projectDiv = document.createElement('div');
-      projectDiv.innerHTML = `<p>${project.name}</p><span class="material-symbols-outlined project-delete-btn">delete</span>`;
-      projectDiv.id = project.name;
-      projectDiv.className = 'project-sub-name';
-      document.getElementById('project-list-button').setAttribute('aria-label', 'Toggle project list');
-      projectListDiv.append(projectDiv);
-    }
+      // Render all projects, including Home
+      for (const project of projectList) {
+        const projectDiv = document.createElement('div');
+        projectDiv.innerHTML = `<p>${project.name}</p><span class="material-symbols-outlined project-delete-btn">delete</span>`;
+        projectDiv.id = project.name;
+        projectDiv.className = 'project-sub-name';
+        document.getElementById('project-list-button').setAttribute('aria-label', 'Toggle project list');
+        projectListDiv.append(projectDiv);
+      }
 
-    // Handle delete project button click
-    const deleteProjectIcons = document.querySelectorAll('.project-delete-btn');
-    deleteProjectIcons.forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation(); // Prevent event bubbling
-        const projectDiv = btn.parentElement; 
-        const projectName = projectDiv.id; 
+      // Handle delete project button click
+      const deleteProjectIcons = document.querySelectorAll('.project-delete-btn');
+      deleteProjectIcons.forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation(); // Prevent event bubbling
+          const projectDiv = btn.parentElement; 
+          const projectName = projectDiv.id; 
         
-        // Prevent deletion of Home project
-        if (projectName === 'Home') {
-          console.warn('Cannot delete the Home project');
-          alert('Cannot delete Home Project')
-          return;
-        }
+          // Prevent deletion of Home project
+          if (projectName === 'Home') {
+            console.warn('Cannot delete the Home project');
+            alert('Cannot delete Home Project');
+            return;
+          }
 
-        // Remove from projectManager
-        projectManager.removeProject(projectName);
+          // Remove from projectManager
+          projectManager.removeProject(projectName);
         
-        // Remove from DOM
-        projectListDiv.removeChild(projectDiv);
+          // Remove from DOM
+          projectListDiv.removeChild(projectDiv);
         
-        // Update UI
-        renderUI();
+          // Update UI
+          renderUI();
+        });
       });
     });
-  });
-} else {
-  console.error('Project list icon not found');
-}
+  } else {
+    console.error('Project list icon not found');
+  }
 
   // Handle cancel button for add project form
   const cancelProjectBtn = document.getElementById('cancel-project');
@@ -189,7 +189,7 @@ if (projectListIcon) {
   if (projectListDiv) {
     
   }
-  console.log(projectManager.getProjects().name)
+  console.log(projectManager.getProjects().name);
   
   // Initial render
   renderUI();
