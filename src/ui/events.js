@@ -107,16 +107,6 @@ export const setupEventListeners = (projectManager) => {
   });
 
 
-  // Remove Project
-
-
-
-
-
-
-  // Toggle List of Projects on Project list icon click
-
-
 
 
   // Toggle add project form on list icon click
