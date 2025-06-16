@@ -1,9 +1,9 @@
-import { Project } from  './Project.js';
+import Project from './Project.js';
 
-export class ProjectManger {
+export default class ProjectManager {
   constructor() {
     this.projects = [new Project('Home')];
-    this.currentProject = this.projects[0];
+    [this.currentProject] = this.projects;
   }
 
   addProject(name) {
@@ -14,15 +14,15 @@ export class ProjectManger {
 
   removeProject(name) {
     if (name === 'Home') return;
-    this.projects = this.projects.filter(project => project.name !== name);
+    this.projects = this.projects.filter((project) => project.name !== name);
     if (this.currentProject.name === name) {
-      this.currentProject = this.projects[0];
+      [this.currentProject] = this.projects;
     }
   }
 
   setCurrentProject(name) {
-    const project = this.projects.find(project => project.name === name);
-    if (project) this.currentProject = project;
+    const currproject = this.projects.find((proj) => proj.name === name);
+    if (currproject) this.currentProject = currproject;
   }
 
   getCurrentProject() {

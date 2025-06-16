@@ -1,4 +1,4 @@
-export class Project {
+export default class Project {
   constructor(name) {
     this.name = name;
     this.todos = [];
@@ -7,8 +7,9 @@ export class Project {
   addTodo(todo) {
     this.todos.push(todo);
   }
+
   removeTodo(todoTitle) {
-    this.todos = this.todos.filter (todo => todo.title !== todoTitle);
+    this.todos = this.todos.filter((todo) => todo.title !== todoTitle);
   }
 
   getTodos() {

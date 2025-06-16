@@ -1,18 +1,18 @@
-import { ProjectManger } from '../models/ProjectManager.js';
-import { toDo } from '../models/toDoClass.js';
-import { renderProjects, renderTodos, renderTodoForm } from './dom.js';
+import TodoClass from '../models/TodoClass.js';
+import { renderProjects, renderTodoForm } from './dom.js';
 
-export const setupEventListeners = (projectManager) => {
+export default (projectManager) => {
   const addTodoBtn = document.getElementById('add-todo-btn');
   const addProjectForm = document.getElementById('add-project-form');
-  const projectListBtn = document.getElementById('project-list-button');
 
   if (!addTodoBtn || !addProjectForm) {
-    console.error('Required elements not found');
-    return;
+    throw new Error('Required elements not found');
   }
 
-  // Helper function to render UI
+  let handleEditTodo;
+  let handleDeleteTodo;
+  let handleProjectSwitch;
+
   const renderUI = () => {
     renderProjects(
       projectManager.getProjects(),
@@ -20,33 +20,25 @@ export const setupEventListeners = (projectManager) => {
       handleProjectSwitch,
       handleDeleteTodo,
       handleEditTodo,
-      // handleRemoveProject,
-      
     );
   };
 
-
-
-
-  // Handle project switch
-  const handleProjectSwitch = (name) => {
+  handleProjectSwitch = (name) => {
     projectManager.setCurrentProject(name);
     renderUI();
-    document.getElementById('todo-form-container').innerHTML = ''; // Clear form
+    document.getElementById('todo-form-container').innerHTML = '';
   };
 
-  // Handle todo deletion
-  const handleDeleteTodo = (projectName, title) => {
-    const project = projectManager.getProjects().find(p => p.name === projectName);
+  handleDeleteTodo = (projectName, title) => {
+    const project = projectManager.getProjects().find((p) => p.name === projectName);
     if (project) {
       project.removeTodo(title);
       renderUI();
     }
   };
 
-  // Handle todo editing
-  const handleEditTodo = (projectName, todo) => {
-    renderTodoForm(projectName, todo, () => {
+  handleEditTodo = (projectName, todo) => {
+    renderTodoForm(projectName, () => {
       const updatedTodo = {
         title: document.getElementById('todo-title').value.trim(),
         description: document.getElementById('todo-description').value.trim(),
@@ -56,113 +48,97 @@ export const setupEventListeners = (projectManager) => {
       };
       todo.update(updatedTodo);
       renderUI();
-      document.getElementById('todo-form-container').innerHTML = ''; // Clear form
+      document.getElementById('todo-form-container').innerHTML = '';
     }, () => {
-      document.getElementById('todo-form-container').innerHTML = ''; // Cancel
-    });
+      document.getElementById('todo-form-container').innerHTML = '';
+    }, todo);
   };
 
-  // Add Todo button
   addTodoBtn.addEventListener('click', () => {
     const currentProjectName = projectManager.getCurrentProject().name;
-    renderTodoForm(currentProjectName, null, () => {
-      const newTodo = new toDo(
+    renderTodoForm(currentProjectName, () => {
+      const newTodo = new TodoClass(
         document.getElementById('todo-title').value.trim(),
         document.getElementById('todo-description').value.trim(),
         document.getElementById('todo-due-date').value,
         document.getElementById('todo-priority').value,
-        document.getElementById('todo-completed').checked
+        document.getElementById('todo-completed').checked,
       );
-            
+
       const projectName = document.getElementById('todo-project').value;
-      const project = projectManager.getProjects().find(p => p.name === projectName);
+      const project = projectManager.getProjects().find((p) => p.name === projectName);
       if (project) {
         project.addTodo(newTodo);
         renderUI();
-        document.getElementById('todo-form-container').innerHTML = ''; // Clear form
+        document.getElementById('todo-form-container').innerHTML = '';
       }
     }, () => {
-      document.getElementById('todo-form-container').innerHTML = ''; // Cancel
-    });
+      document.getElementById('todo-form-container').innerHTML = '';
+    }, null);
   });
 
-  // Add Project
   addProjectForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const name = document.getElementById('project-name').value.trim();
-    
+
     if (!name) {
-      console.warn('Project name cannot be empty');
-      return;
+      throw new Error('Project name cannot be empty');
     }
     if (projectManager.getProjects().some((project) => project.name === name)) {
-      console.warn('Project name already exists');
-      return;
+      throw new Error('Project name already exists');
     }
 
     projectManager.addProject(name);
     renderUI();
     addProjectForm.reset();
-    addProjectForm.style.display = 'none'; // Hide form after submission
+    addProjectForm.style.display = 'none';
   });
 
-
-
-
-  // Toggle add project form on list icon click
   const projectListIcon = document.getElementById('project-list-button');
   const projectListDiv = document.getElementById('project-list-div');
-  
+
   if (projectListIcon) {
     projectListIcon.addEventListener('click', () => {
       addProjectForm.style.display = addProjectForm.style.display === 'none' ? 'flex' : 'none';
 
       const projectList = projectManager.getProjects();
-    
-      // Clear existing project list to avoid duplicates
       projectListDiv.innerHTML = '';
 
-      // Render all projects, including Home
-      for (const project of projectList) {
+      projectList.forEach((project) => {
         const projectDiv = document.createElement('div');
         projectDiv.innerHTML = `<p>${project.name}</p><span class="material-symbols-outlined project-delete-btn">delete</span>`;
         projectDiv.id = project.name;
         projectDiv.className = 'project-sub-name';
         document.getElementById('project-list-button').setAttribute('aria-label', 'Toggle project list');
         projectListDiv.append(projectDiv);
-      }
+      });
 
-      // Handle delete project button click
       const deleteProjectIcons = document.querySelectorAll('.project-delete-btn');
       deleteProjectIcons.forEach((btn) => {
         btn.addEventListener('click', (e) => {
-          e.stopPropagation(); // Prevent event bubbling
-          const projectDiv = btn.parentElement; 
-          const projectName = projectDiv.id; 
-        
-          // Prevent deletion of Home project
+          e.stopPropagation();
+          const projectDiv = btn.parentElement;
+          const projectName = projectDiv.id;
+
           if (projectName === 'Home') {
-            console.warn('Cannot delete the Home project');
-            alert('Cannot delete Home Project');
+            const notification = document.createElement('div');
+            notification.textContent = 'Cannot delete Home Project';
+            notification.className = 'notification';
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
             return;
           }
 
-          // Remove from projectManager
           projectManager.removeProject(projectName);
-        
-          // Remove from DOM
           projectListDiv.removeChild(projectDiv);
-        
-          // Update UI
           renderUI();
         });
       });
     });
   } else {
-    console.error('Project list icon not found');
+    throw new Error('Project list icon not found');
   }
 
-  // Handle cancel button for add project form
   const cancelProjectBtn = document.getElementById('cancel-project');
   if (cancelProjectBtn) {
     cancelProjectBtn.addEventListener('click', () => {
@@ -171,16 +147,5 @@ export const setupEventListeners = (projectManager) => {
     });
   }
 
-
-
-  
-
-    
-  if (projectListDiv) {
-    
-  }
-  console.log(projectManager.getProjects().name);
-  
-  // Initial render
   renderUI();
 };

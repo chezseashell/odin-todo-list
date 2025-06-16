@@ -1,32 +1,7 @@
-
-
-
-
-export const renderProjects = (projects, currentProject, onProjectClick, onDeleteTodo, onEditTodo) => {
-  const projectTodoList = document.getElementById('project-todo-list');
-  if (!projectTodoList) {
-    console.error('Project todo list element not found');
-    return;
-  }
-  projectTodoList.innerHTML = '';
-  projects.forEach(project => {
-    const projectDiv = document.createElement('div');
-    projectDiv.className = 'project';
-    const projectTitle = document.createElement('h2');
-    projectTitle.textContent = project.name;
-    projectTitle.className = project === currentProject ? 'active' : '';
-    projectTitle.classList.add('project-title');
-    projectTitle.addEventListener('click', () => onProjectClick(project.name));
-    projectDiv.appendChild(projectTitle);
-    renderTodos(project, projectDiv, onDeleteTodo, onEditTodo);
-    projectTodoList.appendChild(projectDiv);
-  });
-};
-  
 export const renderTodos = (project, container, onDelete, onEdit) => {
   const todoList = document.createElement('ul');
 
-  project.getTodos().forEach(todo => {
+  project.getTodos().forEach((todo) => {
     // Parse dueDate as local date to avoid UTC shift
     let dueDateText = '';
     if (todo.dueDate) {
@@ -68,12 +43,37 @@ export const renderTodos = (project, container, onDelete, onEdit) => {
   });
   container.appendChild(todoList);
 };
-  
-export const renderTodoForm = (projectName, todo = null, onSubmit, onCancel) => {
+
+export const renderProjects = (
+  projects,
+  currentProject,
+  onProjectClick,
+  onDeleteTodo,
+  onEditTodo,
+) => {
+  const projectTodoList = document.getElementById('project-todo-list');
+  if (!projectTodoList) {
+    throw new Error('Project todo list element not found');
+  }
+  projectTodoList.innerHTML = '';
+  projects.forEach((project) => {
+    const projectDiv = document.createElement('div');
+    projectDiv.className = 'project';
+    const projectTitle = document.createElement('h2');
+    projectTitle.textContent = project.name;
+    projectTitle.className = project === currentProject ? 'active' : '';
+    projectTitle.classList.add('project-title');
+    projectTitle.addEventListener('click', () => onProjectClick(project.name));
+    projectDiv.appendChild(projectTitle);
+    renderTodos(project, projectDiv, onDeleteTodo, onEditTodo);
+    projectTodoList.appendChild(projectDiv);
+  });
+};
+
+export const renderTodoForm = (projectName, onSubmit, onCancel, todo = null) => {
   const formContainer = document.getElementById('todo-form-container');
   if (!formContainer) {
-    console.error('Todo form container not found');
-    return;
+    throw new Error('Todo form container not found');
   }
   formContainer.innerHTML = `
       <form id="todo-form">
