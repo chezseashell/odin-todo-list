@@ -293,7 +293,6 @@ body {
     font-weight: 200;
     letter-spacing: .025rem;
     height:400px;
-    border-radius: 0 0 25px 25px;
     bottom:65px;
     width: 100%;
     max-width: 400px;
@@ -410,14 +409,23 @@ input::placeholder, textarea::placeholder {
     display: flex;
     justify-content: flex-end;
 
+
 }
 
+#todo-status-div>button>span{
+    color:#66645f;
+}
 #todo-status-div>button {
-        background-color: none;
         outline: none;
         border: none;
         background-color: transparent;
     
+}
+
+
+#todo-status-div>button>span:hover{
+    cursor:pointer;
+    color:#202222;
 }
 
 
@@ -589,11 +597,16 @@ input::placeholder, textarea::placeholder {
     align-items: center;
 }
 
-
+#add-todo-btn:hover{
+    cursor: pointer;
+    background-color: #3e3d3b;
+}
 
 
 @media (min-width: 768px) {
+
     #app {
+
         margin-top: 50px;
         min-height: 80vh;
 
@@ -603,4 +616,5 @@ input::placeholder, textarea::placeholder {
         position:relative;
         
     }
+  
 }
